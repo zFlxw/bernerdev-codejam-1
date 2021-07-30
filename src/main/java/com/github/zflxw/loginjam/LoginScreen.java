@@ -41,7 +41,6 @@ public class LoginScreen {
 
                 get("/login").to(request -> Response.ok().body(Reader.readResource("login.html")).done());
                 get("/register").to(request -> Response.ok().body(Reader.readResource("register.html")).done());
-                get("/success").to(request -> Response.ok().body(Reader.readResource("success.html")).done());
                 get("/unauthorized").to(request -> Response.ok().body(Reader.readResource("unauthorized.html")).done());
 
                 get("/dashboard").to(request -> {
@@ -90,7 +89,7 @@ public class LoginScreen {
                         exception.printStackTrace();
                     }
 
-                    return Response.redirect("/success").done();
+                    return Response.redirect("/").done();
                 });
 
                 post("/login").to(request -> {
