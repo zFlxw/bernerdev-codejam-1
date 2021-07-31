@@ -1,7 +1,9 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
+mainClassName = 'com.github.zflxw.loginjam.LoginScreen'
 group 'com.github.zflxw'
 version '1.0-SNAPSHOT'
 

@@ -4,6 +4,138 @@
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/eec2cc4256.js" crossorigin="anonymous"></script>
     <title>Index Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        body {
+            font-family: Montserrat, sans-serif;
+            background-color: #353b48;
+            padding: 50px;
+        }
+
+        .login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 20px auto;
+            width: 300px;
+            -webkit-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+            -o-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+            -moz-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+            box-shadow: 0 0 45px 11px rgba(0,0,0,0.24);
+            border-radius: 25px;
+        }
+
+        .login-screen {
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 25px
+        }
+
+        .login-title {
+            text-align: center;
+            padding-bottom: 10px;
+            color: #777;
+        }
+
+        .login-form {
+            text-align: center;
+        }
+
+        .login-field {
+            margin-bottom: 10px;
+        }
+
+        input {
+            text-align: center;
+            background-color: #ECF0F1;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 200;
+            padding: 10px 0;
+            width: 250px;
+            transition: border .5s;
+        }
+
+        input:focus {
+            border: 2px solid #3498DB;
+            box-shadow: none;
+        }
+
+        .btn {
+            border: 2px solid transparent;
+            background: #3498DB;
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 25px;
+            padding: 10px 0;
+            text-decoration: none;
+            text-shadow: none;
+            border-radius: 3px;
+            box-shadow: none;
+            transition: 0.25s;
+            display: block;
+            width: 250px;
+            margin: 0 auto;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+            background-color: #2980B9;
+        }
+
+        .login-link {
+            font-size: 12px;
+            color: #444;
+            display: block;
+            margin-top: 12px;
+        }
+
+        .error-code p {
+            font-size: 14px;
+            color: red;
+            display: block;
+            margin-top: 12px;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const errorCode = params.get("error-code");
+            const div = document.getElementById("error-code");
+
+            switch (errorCode) {
+                // incomplete information
+                case "0":
+                    div.innerHTML = "<p>The entered information are incomplete.</p>";
+                    break;
+                // invalid password
+                case "1":
+                    div.innerHTML = "<p>Your password is invalid.</p>";
+                    break;
+                // Already logged in
+                case "2":
+                    div.innerHTML = "<p>This account does not exist.</p>";
+                    break;
+                case "3":
+                    div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
+                    break;
+                case "4":
+                    div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>";
+                    break;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="login">
@@ -32,135 +164,3 @@
 </div>
 </body>
 </html>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-
-    * {
-        box-sizing: border-box;
-    }
-
-    *:focus {
-        outline: none;
-    }
-
-    body {
-        font-family: Montserrat, sans-serif;
-        background-color: #353b48;
-        padding: 50px;
-    }
-
-    .login {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 20px auto;
-        width: 300px;
-        -webkit-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
-        -o-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
-        -moz-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
-        box-shadow: 0 0 45px 11px rgba(0,0,0,0.24);
-        border-radius: 25px;
-    }
-
-    .login-screen {
-        background-color: #FFF;
-        padding: 20px;
-        border-radius: 25px
-    }
-
-    .login-title {
-        text-align: center;
-        padding-bottom: 10px;
-        color: #777;
-    }
-
-    .login-form {
-        text-align: center;
-    }
-
-    .login-field {
-        margin-bottom: 10px;
-    }
-
-    input {
-        text-align: center;
-        background-color: #ECF0F1;
-        border: 2px solid transparent;
-        border-radius: 3px;
-        font-size: 16px;
-        font-weight: 200;
-        padding: 10px 0;
-        width: 250px;
-        transition: border .5s;
-    }
-
-    input:focus {
-        border: 2px solid #3498DB;
-        box-shadow: none;
-    }
-
-    .btn {
-        border: 2px solid transparent;
-        background: #3498DB;
-        color: #ffffff;
-        font-size: 16px;
-        line-height: 25px;
-        padding: 10px 0;
-        text-decoration: none;
-        text-shadow: none;
-        border-radius: 3px;
-        box-shadow: none;
-        transition: 0.25s;
-        display: block;
-        width: 250px;
-        margin: 0 auto;
-    }
-
-    .btn:hover {
-        cursor: pointer;
-        background-color: #2980B9;
-    }
-
-    .login-link {
-        font-size: 12px;
-        color: #444;
-        display: block;
-        margin-top: 12px;
-    }
-
-    .error-code p {
-        font-size: 14px;
-        color: red;
-        display: block;
-        margin-top: 12px;
-    }
-</style>
-<script>
-    window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
-        const errorCode = params.get("error-code");
-        const div = document.getElementById("error-code");
-
-        switch (errorCode) {
-            // incomplete information
-            case "0":
-                div.innerHTML = "<p>The entered information are incomplete.</p>";
-                break;
-            // invalid password
-            case "1":
-                div.innerHTML = "<p>Your password is invalid.</p>";
-                break;
-            // Already logged in
-            case "2":
-                div.innerHTML = "<p>This account does not exist.</p>";
-                break;
-            case "3":
-                div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
-                break;
-            case "4":
-                div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>";
-                break;
-        }
-    }
-</script>

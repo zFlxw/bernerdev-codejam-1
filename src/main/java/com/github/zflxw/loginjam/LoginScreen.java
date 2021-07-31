@@ -17,7 +17,6 @@ import java.util.Properties;
 import java.util.UUID;
 
 public class LoginScreen {
-    // Token, Username (E-Mail)
     private static final HashMap<String, String> tokens = new HashMap<>();
     private static final HashMap<String, Long> bannedIps = new HashMap<>();
     private static final HashMap<String, Integer> failCount = new HashMap<>();
