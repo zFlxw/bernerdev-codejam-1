@@ -106,10 +106,14 @@ public class LoginScreen {
                         CookieJar cookies = CookieJar.get(request);
 
                         if (isIPBanned(request)) {
-                            return Response.redirect("/login?error-code=3").done();
+                            return Response.redirect("/login?error-code=4").done();
                         }
 
                         if (cookies.has("token") && tokens.containsKey(cookies.get("token").value())) {
+                            return Response.redirect("/login?error-code=3").done();
+                        }
+
+                        if (!data.containsKey(email)) {
                             return Response.redirect("/login?error-code=2").done();
                         }
 

@@ -153,10 +153,13 @@
                 break;
             // Already logged in
             case "2":
-                div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
+                div.innerHTML = "<p>This account does not exist.</p>";
                 break;
             case "3":
-                div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>"
+                div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
+                break;
+            case "4":
+                div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>";
                 break;
         }
     }
