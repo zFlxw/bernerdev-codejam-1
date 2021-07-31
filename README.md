@@ -3,11 +3,12 @@
 ![img](https://cdn.discordapp.com/attachments/794300974247575604/870274118023524402/bernerdev.logo..png)
 
 ## How to run
-1. start the http server (run the main method in `LoginScreen`)
-2. head over to `http://localhost:8080`
+1. create `banned_ips.properties` and `data.properties` in your run directory
+2. start the http server (run the main method in `LoginScreen`)
+3. head over to `http://localhost:8080`
    1. there is no index page, if you are logged in you will get redirected to the ``dashboard``
    2. if you are not logged in, you will get redirected to the ``login`` page
-3. You can register on the login page by clicking on ``Register instead?`` or by entering `http://localhost:8080/register`
+4. You can register on the login page by clicking on ``Register instead?`` or by entering `http://localhost:8080/register`
 
 - the dashboard will display, whether you are logged in or not.
 
