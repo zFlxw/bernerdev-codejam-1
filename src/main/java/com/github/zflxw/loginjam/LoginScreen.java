@@ -64,7 +64,11 @@ public class LoginScreen {
                     try {
                         String email = request.part("email").value().toLowerCase();
                         String password = request.part("password").value();
-                        String passwordRepeat = request.part("password_repeat").value();
+                        String passwordRepeat = request.part("password-repeat").value();
+
+                        if (isIPBanned(request)) {
+                            return Response.redirect("/register?error-code=3").done();
+                        }
 
                         if (email.isBlank() || password.isBlank() || passwordRepeat.isBlank()) {
                             return Response.redirect("/register?error-code=0").done();

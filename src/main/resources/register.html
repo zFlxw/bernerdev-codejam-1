@@ -2,22 +2,142 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <script src="https://kit.fontawesome.com/eec2cc4256.js" crossorigin="anonymous"></script>
+    <title>Register an account</title>
 </head>
 <body>
-    <form name="register" method="post" action="/register" enctype="multipart/form-data">
-        <input type="email" name="email" id="email" placeholder="email" />
-        <input type="password" name="password" id="password" placeholder="password" />
-        <input type="password" name="password_repeat" id="password_repeat" placeholder="repeat password" />
+    <div class="register">
+        <div class="register-screen">
+            <div class="register-title">
+                <h1>Sign up</h1>
+            </div>
 
-        <button type="submit">Register</button>
-    </form>
-    <div id="error-code"></div>
+            <form method="post" action="/register" enctype="multipart/form-data" class="register-form">
+                <div class="register-field">
+                    <input type="email" class="register-field" name="email" placeholder="E-Mail" id="register-name">
+                    <label class="register-field-icon fui-user" for="register-name"></label>
+                </div>
+
+                <div class="register-field">
+                    <input type="password" class="register-field" name="password" placeholder="Password" id="register-pass">
+                    <label class="register-field-icon fui-lock" for="register-pass"></label>
+                </div>
+
+                <div class="register-field">
+                    <input type="password" class="register-field" name="password-repeat" placeholder="Password Repeat" id="password-repeat">
+                    <label class="register-field-icon fui-lock" for="register-pass"></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large btn-block"><i class="fas fa-sign-in-alt"></i> Register</button>
+                <div class="error-code" id="error-code"></div>
+                <a class="register-link" href="/login">Already have an account?</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 <style>
-    #error_code p {
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+    * {
+        box-sizing: border-box;
+    }
+
+    *:focus {
+        outline: none;
+    }
+
+    body {
+        font-family: Montserrat, sans-serif;
+        background-color: #353b48;
+        padding: 50px;
+    }
+
+    .register {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 20px auto;
+        width: 300px;
+        -webkit-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        -o-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        -moz-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        box-shadow: 0 0 45px 11px rgba(0,0,0,0.24);
+        border-radius: 25px;
+    }
+
+    .register-screen {
+        background-color: #FFF;
+        padding: 20px;
+        border-radius: 25px
+    }
+
+    .register-title {
+        text-align: center;
+        padding-bottom: 10px;
+        color: #777;
+    }
+
+    .register-form {
+        text-align: center;
+    }
+
+    .register-field {
+        margin-bottom: 10px;
+    }
+
+    input {
+        text-align: center;
+        background-color: #ECF0F1;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 10px 0;
+        width: 250px;
+        transition: border .5s;
+    }
+
+    input:focus {
+        border: 2px solid #3498DB;
+        box-shadow: none;
+    }
+
+    .btn {
+        border: 2px solid transparent;
+        background: #3498DB;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 25px;
+        padding: 10px 0;
+        text-decoration: none;
+        text-shadow: none;
+        border-radius: 3px;
+        box-shadow: none;
+        transition: 0.25s;
+        display: block;
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        background-color: #2980B9;
+    }
+
+    .register-link {
+        font-size: 12px;
+        color: #444;
+        display: block;
+        margin-top: 12px;
+    }
+
+    .error-code p {
+        font-size: 14px;
         color: red;
+        display: block;
+        margin-top: 12px;
     }
 </style>
 <script>
@@ -31,11 +151,16 @@
             case "0":
                 div.innerHTML = "<p>The entered information are incomplete.</p>"
                 break;
+            // passwords do not match
             case "1":
                 div.innerHTML = "<p>Your passwords do not match.</p>"
                 break;
+            // account already exists
             case "2":
                 div.innerHTML = "<p>This email is already registered. Try to <a href=\"/login\">login</a> instead</p>"
+                break;
+            case "3":
+                div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>"
                 break;
         }
     }
