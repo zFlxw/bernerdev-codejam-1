@@ -8,17 +8,17 @@
 <body>
 <div class="login">
     <div class="login-screen">
-        <div class="app-title">
+        <div class="login-title">
             <h1>Login</h1>
         </div>
 
         <form method="post" action="/login" enctype="multipart/form-data" class="login-form">
-            <div class="control-group">
+            <div class="login-field">
                 <input type="email" class="login-field" name="email" placeholder="E-Mail" id="login-name">
                 <label class="login-field-icon fui-user" for="login-name"></label>
             </div>
 
-            <div class="control-group">
+            <div class="login-field">
                 <input type="password" class="login-field" name="password" placeholder="Password" id="login-pass">
                 <label class="login-field-icon fui-lock" for="login-pass"></label>
             </div>
@@ -56,18 +56,22 @@
         transform: translate(-50%, -50%);
         margin: 20px auto;
         width: 300px;
-        -webkit-box-shadow: 0px 0px 45px 11px rgba(0,0,0,0.53);
-        box-shadow: 0px 0px 45px 11px rgba(0,0,0,0.24);
+        -webkit-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        -o-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        -moz-box-shadow: 0 0 45px 11px rgba(0,0,0,0.53);
+        box-shadow: 0 0 45px 11px rgba(0,0,0,0.24);
+        border-radius: 25px;
     }
 
     .login-screen {
         background-color: #FFF;
         padding: 20px;
-        border-radius: 5px
+        border-radius: 25px
     }
 
-    .app-title {
+    .login-title {
         text-align: center;
+        padding-bottom: 10px;
         color: #777;
     }
 
@@ -75,7 +79,7 @@
         text-align: center;
     }
 
-    .control-group {
+    .login-field {
         margin-bottom: 10px;
     }
 
@@ -150,6 +154,9 @@
             // Already logged in
             case "2":
                 div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
+                break;
+            case "3":
+                div.innerHTML = "<p>Your IP-Address is banned. You probably entered a wrong password too often.</p>"
                 break;
         }
     }

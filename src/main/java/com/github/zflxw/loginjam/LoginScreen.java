@@ -19,12 +19,22 @@ import java.util.UUID;
 public class LoginScreen {
     // Token, Username (E-Mail)
     private static final HashMap<String, String> tokens = new HashMap<>();
+    private static final HashMap<String, Long> bannedIps = new HashMap<>();
+    private static final HashMap<String, Integer> failCount = new HashMap<>();
+
+    private static Properties ips = new Properties();
 
     public static void main(String[] args) throws IOException {
         WebServer server = WebServer.create();
         Properties data = new Properties();
 
+
         data.load(new FileInputStream("./data.properties"));
+        ips.load(new FileInputStream("./banned_ips.properties"));
+
+        ips.forEach((key, value) -> {
+            bannedIps.put(key.toString(), Long.parseLong(String.valueOf(value)));
+        }) ;
 
         server.add(next -> request -> next.handle(request).whenComplete((response, throwable) -> {
             if (response.statusCode() == 404) {
@@ -91,6 +101,10 @@ public class LoginScreen {
 
                         CookieJar cookies = CookieJar.get(request);
 
+                        if (isIPBanned(request)) {
+                            return Response.redirect("/login?error-code=3").done();
+                        }
+
                         if (cookies.has("token") && tokens.containsKey(cookies.get("token").value())) {
                             return Response.redirect("/login?error-code=2").done();
                         }
@@ -100,6 +114,20 @@ public class LoginScreen {
                         }
 
                         if (!String.valueOf(hash(password)).equals(data.getProperty(email.toLowerCase()))) {
+                            if (failCount.containsKey(request.remoteIp())) {
+                                if (failCount.get(request.remoteIp()) < 2) {
+                                    int count = failCount.get(request.remoteIp()) + 1;
+                                    failCount.put(request.remoteIp(), count);
+                                    System.out.println(count);
+                                } else {
+                                    banIp(request);
+                                    failCount.remove(request.remoteIp());
+                                    return Response.redirect("/login?error-code=3").done();
+                                }
+                            } else {
+                                failCount.put(request.remoteIp(), 0);
+                                System.out.println(0);
+                            }
                             return Response.redirect("/login?error-code=1").done();
                         }
 
@@ -114,7 +142,6 @@ public class LoginScreen {
                 });
 
                 post("/logout").to(request -> {
-                    System.out.println("Called logout");
                    CookieJar cookieJar = CookieJar.get(request);
 
                    if (cookieJar.has("token") && tokens.containsKey(cookieJar.get("token").value())) {
@@ -141,5 +168,15 @@ public class LoginScreen {
         CookieJar cookies = CookieJar.get(request);
 
         return cookies.has("token") && tokens.containsKey(cookies.get("token").value());
+    }
+
+    private static void banIp(Request request) throws Exception {
+        bannedIps.put(request.remoteIp(), System.currentTimeMillis());
+        ips.put(request.remoteIp(), String.valueOf(System.currentTimeMillis()));
+        ips.store(new FileOutputStream("./banned_ips.properties"), "This file does contain all banned user ips");
+    }
+
+    private static boolean isIPBanned(Request request) {
+        return bannedIps.containsKey(request.remoteIp());
     }
 }
