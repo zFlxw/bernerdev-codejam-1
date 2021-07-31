@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+    <form method="post" action="/login" enctype="multipart/form-data">
+        <input type="email" name="email" id="email"/>
+        <input type="password" name="password" id="password">
+        <button type="submit">Login</button>
+    </form>
+    <div id="error_code"></div>
+</body>
+</html>
+<script>
+    window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        const errorCode = params.get("error_code");
+        const div = document.getElementById("error_code");
+
+        switch (errorCode) {
+            // incomplete information
+            case "0":
+                div.innerHTML = "<p>The entered information are incomplete.</p>";
+                break;
+            // invalid password
+            case "1":
+                div.innerHTML = "<p>Your password is invalid.</p>";
+                break;
+            // Already logged in
+            case "2":
+                div.innerHTML = "<p>You are already logged in. You can log out in the <a href=\"/dashboard\">dashboard</a></p>";
+                break;
+        }
+    }
+</script>

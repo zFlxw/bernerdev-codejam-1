@@ -1,23 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <script src="https://kit.fontawesome.com/eec2cc4256.js" crossorigin="anonymous"></script>
+    <title>Index Page</title>
 </head>
 <body>
-    <form method="post" action="/login" enctype="multipart/form-data">
-        <input type="email" name="email" id="email"/>
-        <input type="password" name="password" id="password">
-        <button type="submit">Login</button>
-    </form>
-    <div id="error_code"></div>
+<div class="login">
+    <div class="login-screen">
+        <div class="app-title">
+            <h1>Login</h1>
+        </div>
+
+        <form method="post" action="/login" enctype="multipart/form-data" class="login-form">
+            <div class="control-group">
+                <input type="email" class="login-field" name="email" placeholder="E-Mail" id="login-name">
+                <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+
+            <div class="control-group">
+                <input type="password" class="login-field" name="password" placeholder="Password" id="login-pass">
+                <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-large btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <div class="error-code" id="error-code"></div>
+            <a class="login-link" href="/register">Register instead?</a>
+            <a class="login-link" href="#" title="Well yeah, try to remember. You cannot reset it.">Forgot your password?</a>
+        </form>
+    </div>
+</div>
 </body>
 </html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+    * {
+        box-sizing: border-box;
+    }
+
+    *:focus {
+        outline: none;
+    }
+
+    body {
+        font-family: Montserrat, sans-serif;
+        background-color: #353b48;
+        padding: 50px;
+    }
+
+    .login {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 20px auto;
+        width: 300px;
+        -webkit-box-shadow: 0px 0px 45px 11px rgba(0,0,0,0.53);
+        box-shadow: 0px 0px 45px 11px rgba(0,0,0,0.24);
+    }
+
+    .login-screen {
+        background-color: #FFF;
+        padding: 20px;
+        border-radius: 5px
+    }
+
+    .app-title {
+        text-align: center;
+        color: #777;
+    }
+
+    .login-form {
+        text-align: center;
+    }
+
+    .control-group {
+        margin-bottom: 10px;
+    }
+
+    input {
+        text-align: center;
+        background-color: #ECF0F1;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 10px 0;
+        width: 250px;
+        transition: border .5s;
+    }
+
+    input:focus {
+        border: 2px solid #3498DB;
+        box-shadow: none;
+    }
+
+    .btn {
+        border: 2px solid transparent;
+        background: #3498DB;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 25px;
+        padding: 10px 0;
+        text-decoration: none;
+        text-shadow: none;
+        border-radius: 3px;
+        box-shadow: none;
+        transition: 0.25s;
+        display: block;
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        background-color: #2980B9;
+    }
+
+    .login-link {
+        font-size: 12px;
+        color: #444;
+        display: block;
+        margin-top: 12px;
+    }
+
+    .error-code p {
+        font-size: 14px;
+        color: red;
+        display: block;
+        margin-top: 12px;
+    }
+</style>
 <script>
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
-        const errorCode = params.get("error_code");
-        const div = document.getElementById("error_code");
+        const errorCode = params.get("error-code");
+        const div = document.getElementById("error-code");
 
         switch (errorCode) {
             // incomplete information

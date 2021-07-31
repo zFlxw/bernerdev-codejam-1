@@ -12,7 +12,7 @@
 
         <button type="submit">Register</button>
     </form>
-    <div id="error_code"></div>
+    <div id="error-code"></div>
 </body>
 </html>
 <style>
@@ -23,8 +23,8 @@
 <script>
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
-        const errorCode = params.get("error_code");
-        const div = document.getElementById("error_code");
+        const errorCode = params.get("error-code");
+        const div = document.getElementById("error-code");
 
         switch (errorCode) {
             // information incomplete
